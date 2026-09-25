@@ -1,0 +1,30 @@
+{
+  "name": "fly-factory",
+  "private": true,
+  "version": "1.0.0",
+  "description": "A 3D fly-tycoon factory whose worker fly runs on the FlyWire connectome (Shiu et al. 2024 LIF model).",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "build:single": "vite build --mode single",
+    "preview": "vite preview",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "e2e": "node tests/e2e/smoke.mjs",
+    "brain": "python3 tools/build_connectome.py"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "three": "^0.186.1"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.2",
+    "@types/three": "^0.186.0",
+    "playwright-core": "^1.63.0",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.1",
+    "vite-plugin-singlefile": "^2.3.3",
+    "vitest": "^5.0.1"
+  }
+}

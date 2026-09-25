@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+    <title>Fly Factory Tycoon</title>
+    <meta name="description" content="Boss around a worker fly whose behaviour comes from a live simulation of the FlyWire fruit-fly connectome." />
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🪰</text></svg>" />
+  </head>
+  <body>
+    <div id="stage"></div>
+
+    <div id="hud-money" class="panel">
+      <div class="cash" id="cash">$0</div>
+      <div class="sub" id="cash-sub">0 flies made</div>
+    </div>
+
+    <div id="hud-worker" class="panel">
+      <div class="worker-title">🪖 Worker #1 <span class="spacer"></span><span id="w-badge" class="badge scripted">scripted</span></div>
+      <div class="mode" id="w-mode">Booting brain…</div>
+      <div class="bar" id="w-energy"><span>Energy</span><div class="track"><div class="fill"></div></div><span class="val">0%</span></div>
+      <div class="bar" id="w-dust"><span>Dust</span><div class="track"><div class="fill"></div></div><span class="val">0%</span></div>
+      <div class="stats" id="w-stats"></div>
+      <div class="row-btns">
+        <button id="btn-follow">🎥 Follow worker</button>
+        <button id="btn-help">❔ How it works</button>
+      </div>
+    </div>
+
+    <aside id="neuroscope" class="drawer panel" aria-label="Neuroscope">
+      <header>🧠 Neuroscope <span class="spacer"></span><button data-close="neuroscope" aria-label="Close">✕</button></header>
+      <div class="body"></div>
+    </aside>
+    <aside id="opto" class="drawer panel" aria-label="Opto Lab">
+      <header>🔬 Opto Lab <span class="spacer"></span><button data-close="opto" aria-label="Close">✕</button></header>
+      <div class="body"></div>
+    </aside>
+    <aside id="shop" class="drawer panel" aria-label="Shop">
+      <header>🛒 Upgrades <span class="spacer"></span><button data-close="shop" aria-label="Close">✕</button></header>
+      <div class="body"></div>
+    </aside>
+
+    <div id="log"></div>
+    <div id="tool-hint" class="panel"></div>
+    <nav id="toolbar" class="panel" aria-label="Boss tools"></nav>
+
+    <div id="loading">
+      <div class="box panel">
+        <h1>🪰 Fly Factory Tycoon</h1>
+        <div class="spinner"></div>
+        <p id="loading-msg">Wiring up the connectome…</p>
+      </div>
+    </div>
+
+    <div id="intro" hidden>
+      <div class="box panel">
+        <h1>🪰 Fly Factory Tycoon</h1>
+        <p>You're the boss. Your one employee is a fruit fly, and <b>its brain is a real connectome simulation</b>: the
+          FlyWire whole-brain wiring diagram running the leaky integrate-and-fire model of Shiu et al. (2024) live in your browser.</p>
+        <ul>
+          <li><b>Game logic</b> walks it between the egg tray and the incubator. Every hatched fly pays out.</li>
+          <li><b>Its neurons</b> decide when it <b>eats</b> (sugar GRNs → MN9), <b>grooms</b> (dust on bristles → grooming DNs),
+            <b>escapes</b> (looming → LC4/LPLC2 → Giant Fiber) and <b>turns away</b> from threats (DNa02).</li>
+          <li>Feed it 🍬 when it's tired, blow 💨 the dust off, spray 🧪 bitter to stop a snack, or swat 🗞️ it. Rewire it in the 🔬 Opto Lab.</li>
+        </ul>
+        <p class="small">Spike timing is stochastic (Poisson sensory input), so the worker never reacts exactly the same way twice.
+          The status badge shows whether the current action is <span class="badge neural">neural</span> or <span class="badge scripted">scripted</span>.</p>
+        <button class="primary" id="btn-start" style="font-size:15px;padding:10px 18px">Clock in 🏭</button>
+      </div>
+    </div>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
