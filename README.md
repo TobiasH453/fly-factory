@@ -107,6 +107,7 @@ npm run dev          # http://localhost:5173
 npm test             # engine, parity, decoder and economy tests (vitest)
 npm run build        # dist/ (static site)
 npm run build:single # dist-single/index.html, everything inlined in one file
+npm run build:artifact # dist-artifact/fly-factory.html: page content for hosts that add their own <head>/<body>
 npm run e2e          # after `npm run build`: headless Chromium smoke test of the neural behaviours
                      # (uses /opt/pw-browsers/chromium, or set CHROMIUM=/path/to/chrome)
 ```

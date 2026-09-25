@@ -34,7 +34,7 @@ export class Label {
     const o = this.opts;
     const lines = text.split("\n");
     const px = 64;
-    const font = o.font ?? `800 ${px}px "Trebuchet MS", "Arial Rounded MT Bold", system-ui, sans-serif`;
+    const font = o.font ?? `600 ${px}px Fredoka, "Trebuchet MS", "Arial Rounded MT Bold", system-ui, sans-serif`;
     const pad = o.padding ?? 22;
     this.ctx.font = font;
     const w = Math.ceil(Math.max(...lines.map((l) => this.ctx.measureText(l).width)) + pad * 2);

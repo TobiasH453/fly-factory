@@ -15,7 +15,11 @@
   --track: rgba(15, 20, 27, 0.1);
   --shadow: 0 6px 24px rgba(10, 20, 40, 0.18);
   --radius: 14px;
-  --font: "Trebuchet MS", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --font: "Atkinson Hyperlegible", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --font-display: "Fredoka", "Trebuchet MS", "Arial Rounded MT Bold", system-ui, sans-serif;
+  --gutter: 16px;
+  --top: calc(var(--gutter) + env(safe-area-inset-top, 0px));
+  --bottom: calc(var(--gutter) + env(safe-area-inset-bottom, 0px));
   color-scheme: light;
 }
 @media (prefers-color-scheme: dark) {
@@ -73,15 +77,15 @@ html, body {
 
 /* ---------- top HUD ---------- */
 #hud-money {
-  position: fixed; top: 12px; left: 12px; padding: 10px 16px; min-width: 190px;
+  position: fixed; top: var(--top); left: var(--gutter); padding: 10px 16px; min-width: 190px;
 }
-#hud-money .cash { font-size: 30px; font-weight: 900; color: var(--good); letter-spacing: -0.5px; }
+#hud-money .cash { font-family: var(--font-display); font-size: 32px; font-weight: 700; color: var(--good); letter-spacing: -0.5px; }
 #hud-money .sub { font-size: 12px; color: var(--muted); margin-top: 2px; }
 
 #hud-worker {
-  position: fixed; top: 12px; right: 12px; width: 290px; padding: 12px 14px;
+  position: fixed; top: var(--top); right: var(--gutter); width: 290px; padding: 12px 14px;
 }
-.worker-title { display: flex; align-items: center; gap: 8px; font-weight: 800; font-size: 14px; }
+.worker-title { display: flex; align-items: center; gap: 8px; font-family: var(--font-display); font-weight: 600; font-size: 15px; }
 .worker-title .spacer { flex: 1; }
 .badge {
   font-size: 10px; font-weight: 800; letter-spacing: 0.6px; padding: 3px 7px; border-radius: 99px;
@@ -89,7 +93,7 @@ html, body {
 }
 .badge.neural { background: var(--neural-bg); color: var(--neural); border: 1px solid var(--neural); }
 .badge.scripted { background: var(--track); color: var(--scripted); border: 1px solid transparent; }
-.mode { font-size: 20px; font-weight: 900; margin: 6px 0 8px; }
+.mode { font-family: var(--font-display); font-size: 23px; font-weight: 700; margin: 6px 0 8px; }
 .bar { display: grid; grid-template-columns: 52px 1fr 40px; align-items: center; gap: 8px; font-size: 12px; color: var(--muted); margin: 4px 0; }
 .bar .track { height: 9px; border-radius: 9px; background: var(--track); overflow: hidden; }
 .bar .fill { height: 100%; border-radius: 9px; transition: width 0.15s linear; }
@@ -107,15 +111,15 @@ button:disabled { opacity: 0.45; cursor: not-allowed; }
 
 /* ---------- toolbar ---------- */
 #toolbar {
-  position: fixed; left: 50%; bottom: 12px; transform: translateX(-50%);
-  display: flex; gap: 6px; padding: 8px; max-width: calc(100vw - 24px); overflow-x: auto;
+  position: fixed; left: 50%; bottom: var(--bottom); transform: translateX(-50%);
+  display: flex; gap: 6px; padding: 8px; max-width: calc(100vw - 2 * var(--gutter)); overflow-x: auto;
 }
 .tool {
   display: flex; flex-direction: column; align-items: center; gap: 2px; min-width: 70px; padding: 7px 8px;
   border-radius: 12px; border: 2px solid transparent; background: transparent; position: relative;
 }
 .tool .ico { font-size: 22px; line-height: 1; }
-.tool .name { font-size: 11px; font-weight: 800; }
+.tool .name { font-family: var(--font-display); font-size: 12px; font-weight: 600; }
 .tool .key {
   position: absolute; top: 3px; right: 5px; font-size: 9px; color: var(--muted); font-weight: 700;
 }
@@ -124,13 +128,13 @@ button:disabled { opacity: 0.45; cursor: not-allowed; }
 .sep { width: 1px; background: var(--panel-border); margin: 4px 2px; }
 
 #tool-hint {
-  position: fixed; left: 50%; bottom: 92px; transform: translateX(-50%); padding: 7px 14px; font-size: 13px;
-  font-weight: 700; white-space: nowrap; max-width: calc(100vw - 24px); overflow: hidden; text-overflow: ellipsis;
+  position: fixed; left: 50%; bottom: calc(var(--bottom) + 80px); transform: translateX(-50%); padding: 7px 14px; font-size: 13px;
+  font-weight: 700; white-space: nowrap; max-width: calc(100vw - 2 * var(--gutter)); overflow: hidden; text-overflow: ellipsis;
 }
 
 /* ---------- event log ---------- */
 #log {
-  position: fixed; left: 12px; bottom: 100px; width: 360px; max-width: calc(100vw - 24px);
+  position: fixed; left: var(--gutter); bottom: calc(var(--bottom) + 122px); width: 360px; max-width: calc(100vw - 2 * var(--gutter));
   display: flex; flex-direction: column; gap: 4px; pointer-events: none;
 }
 .log-item {
@@ -145,20 +149,20 @@ button:disabled { opacity: 0.45; cursor: not-allowed; }
 
 /* ---------- side panels ---------- */
 .drawer {
-  position: fixed; top: 112px; bottom: 100px; width: 340px; max-width: calc(100vw - 24px);
+  position: fixed; top: calc(var(--top) + 100px); bottom: calc(var(--bottom) + 88px); width: 340px; max-width: calc(100vw - 2 * var(--gutter));
   display: none; flex-direction: column; overflow: hidden;
 }
 .drawer.open { display: flex; }
 .drawer header {
   display: flex; align-items: center; gap: 8px; padding: 10px 12px; border-bottom: 1px solid var(--panel-border);
-  font-weight: 900; font-size: 15px;
+  font-family: var(--font-display); font-weight: 600; font-size: 17px;
 }
 .drawer header .spacer { flex: 1; }
 .drawer .body { overflow-y: auto; padding: 10px 12px; flex: 1; }
 .drawer .note { font-size: 11.5px; color: var(--muted); line-height: 1.45; margin: 0 0 8px; }
-#neuroscope { right: 12px; top: 250px; }
-#opto { left: 12px; top: 110px; }
-#shop { left: 12px; top: 110px; }
+#neuroscope { right: var(--gutter); top: calc(var(--top) + 212px); }
+#opto { left: var(--gutter); }
+#shop { left: var(--gutter); }
 
 #brain3d canvas { display: block; }
 #brain3d { width: 100%; height: 190px; border-radius: 10px; overflow: hidden; background: #070b12; position: relative; }
@@ -183,7 +187,7 @@ button:disabled { opacity: 0.45; cursor: not-allowed; }
 .presets { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px; }
 
 .shop-item { display: grid; grid-template-columns: 1fr auto; gap: 2px 8px; padding: 8px 0; border-bottom: 1px solid var(--panel-border); }
-.shop-item .n { font-weight: 800; font-size: 13px; }
+.shop-item .n { font-family: var(--font-display); font-weight: 600; font-size: 14px; }
 .shop-item .d { font-size: 11px; color: var(--muted); grid-column: 1; }
 .shop-item button { grid-row: 1 / span 2; grid-column: 2; align-self: center; }
 .shop-owned { font-size: 11px; color: var(--muted); margin-top: 10px; }
@@ -195,7 +199,7 @@ button:disabled { opacity: 0.45; cursor: not-allowed; }
   z-index: 50;
 }
 #loading .box, #intro .box { max-width: 560px; width: 100%; padding: 22px 24px; }
-#loading h1, #intro h1 { margin: 0 0 6px; font-size: 28px; font-weight: 900; letter-spacing: -0.5px; }
+#loading h1, #intro h1 { margin: 0 0 6px; font-family: var(--font-display); font-size: 32px; font-weight: 700; text-wrap: balance; }
 #intro p, #loading p { font-size: 14px; line-height: 1.5; margin: 8px 0; color: var(--text); }
 #intro ul { font-size: 13.5px; line-height: 1.55; padding-left: 20px; margin: 8px 0; }
 #intro .small { font-size: 11.5px; color: var(--muted); }
@@ -203,15 +207,21 @@ button:disabled { opacity: 0.45; cursor: not-allowed; }
 @keyframes spin { to { transform: rotate(360deg); } }
 
 @media (max-width: 760px) {
-  #hud-worker { width: 200px; padding: 8px 10px; }
+  #hud-worker { width: 186px; padding: 8px 10px; }
   #hud-worker .stats, #hud-worker .row-btns { display: none; }
   .mode { font-size: 15px; margin: 4px 0; }
-  #hud-money { min-width: 0; padding: 8px 12px; }
+  #hud-money { min-width: 0; max-width: calc(100vw - 186px - 3 * var(--gutter)); padding: 8px 12px; }
   #hud-money .cash { font-size: 22px; }
-  #log { bottom: 96px; width: calc(100vw - 24px); }
+  #log { bottom: calc(var(--bottom) + 84px); width: calc(100vw - 2 * var(--gutter)); }
   .log-item:nth-last-child(n + 3) { display: none; }
-  .drawer { top: auto; bottom: 92px; height: 55vh; left: 12px !important; right: 12px !important; width: auto; }
+  .drawer { top: auto; bottom: calc(var(--bottom) + 80px); height: 55%; left: var(--gutter) !important; right: var(--gutter) !important; width: auto; max-width: none; }
   .tool { min-width: 56px; padding: 6px 4px; }
   .tool .name { font-size: 10px; }
   #tool-hint { display: none; }
 }
+
+@media (prefers-reduced-motion: reduce) {
+  .log-item { animation: none; }
+  .spinner { animation-duration: 2.4s; }
+}
+button:focus-visible, .tool:focus-visible, input:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }

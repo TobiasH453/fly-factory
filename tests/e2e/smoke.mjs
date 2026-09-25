@@ -43,7 +43,8 @@ try {
   const page = await browser.newPage({ viewport: { width: 800, height: 500 } });
   const errors = [];
   page.on("pageerror", (e) => errors.push(String(e)));
-  page.on("console", (m) => m.type() === "error" && errors.push(m.text()));
+  // network failures (e.g. web fonts blocked in CI sandboxes, favicon 404) are not app errors
+  page.on("console", (m) => m.type() === "error" && !m.text().startsWith("Failed to load resource") && errors.push(m.text()));
   await page.goto(`http://localhost:${PORT}/`);
   await page.waitForSelector("#intro:not([hidden])", { timeout: 60000 });
   await page.screenshot({ path: `${OUT}/01-intro.png`, timeout: 90000 });

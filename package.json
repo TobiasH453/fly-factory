@@ -12,7 +12,8 @@
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "e2e": "node tests/e2e/smoke.mjs",
-    "brain": "python3 tools/build_connectome.py"
+    "brain": "python3 tools/build_connectome.py",
+    "build:artifact": "vite build --mode single && node tools/make_artifact.mjs"
   },
   "license": "MIT",
   "dependencies": {

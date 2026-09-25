@@ -23,6 +23,13 @@ const meta = metaJson as unknown as BrainMeta;
 const $ = (sel: string) => document.querySelector(sel) as HTMLElement;
 
 async function fetchBin(url: string): Promise<ArrayBuffer> {
+  if (url.startsWith("data:")) {
+    // single-file build: decode inline data ourselves (some hosts' CSP forbids fetching data: URLs)
+    const bin = atob(url.slice(url.indexOf(",") + 1));
+    const out = new Uint8Array(bin.length);
+    for (let i = 0; i < bin.length; i++) out[i] = bin.charCodeAt(i);
+    return out.buffer;
+  }
   const r = await fetch(url);
   if (!r.ok) throw new Error(`failed to load ${url}`);
   return r.arrayBuffer();
@@ -37,6 +44,11 @@ interface Pad {
 
 async function boot() {
   const [brainBuf, neuronsBuf, ghostBuf] = await Promise.all([fetchBin(brainUrl), fetchBin(neuronsUrl), fetchBin(ghostUrl)]);
+  // let the display face arrive before 3D labels are painted (falls back after 1.5 s)
+  await Promise.race([
+    document.fonts?.load('600 64px Fredoka').catch(() => undefined),
+    new Promise((r) => setTimeout(r, 1500)),
+  ]);
   $("#loading-msg").textContent = `Starting ${meta.n.toLocaleString()} neurons and ${meta.nnz.toLocaleString()} connections…`;
   const brain = new BrainClient(meta, brainBuf);
 

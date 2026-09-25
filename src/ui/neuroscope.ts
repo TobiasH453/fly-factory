@@ -338,11 +338,11 @@ export class Neuroscope {
     c.fillStyle = "#070b12";
     c.fillRect(0, 0, W, H);
     c.drawImage(this.raster.canvas, 16, 60, 600, H - 76);
-    c.font = "800 30px Trebuchet MS, sans-serif";
+    c.font = "800 30px Fredoka, 'Trebuchet MS', sans-serif";
     c.fillStyle = "#7dfff0";
     c.fillText(`STATE: ${mode.toUpperCase()}`, 16, 42);
     const rows = this.raster.rows;
-    c.font = "600 12px Trebuchet MS, sans-serif";
+    c.font = "600 12px Fredoka, 'Trebuchet MS', sans-serif";
     rows.forEach((r, i) => {
       c.fillStyle = POP_COLORS[r] ?? "#fff";
       c.fillText(this.meta.populations[r].label.split(" (")[0], 20, 60 + ((H - 76) / rows.length) * (i + 0.7));
@@ -362,7 +362,7 @@ export class Neuroscope {
     bars.forEach(([label, v, thr, col], i) => {
       const y = 70 + i * 52;
       c.fillStyle = "#9fb3c8";
-      c.font = "700 18px Trebuchet MS, sans-serif";
+      c.font = "700 18px Fredoka, 'Trebuchet MS', sans-serif";
       c.fillText(label, x0, y);
       c.fillStyle = "#1b2430";
       c.fillRect(x0, y + 8, 360, 18);
@@ -373,7 +373,7 @@ export class Neuroscope {
         c.fillRect(x0 + (thr / 260) * 360, y + 4, 3, 26);
       }
       c.fillStyle = "#e8eef5";
-      c.font = "700 16px Trebuchet MS, sans-serif";
+      c.font = "700 16px Fredoka, 'Trebuchet MS', sans-serif";
       c.fillText(`${v.toFixed(0)} Hz`, x0 + 300, y);
     });
   }
